@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "github.com/igorakimy/grpc-contracts/gen/go/proto/user/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  // Получить список пользователей
+  rpc GetList(GetUsersRequest) returns (GetUsersResponse);
+}
+
+message GetUsersRequest {}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  string id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  google.protobuf.Timestamp created_at = 5;
+}

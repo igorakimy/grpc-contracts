@@ -1,0 +1,17 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: auth.v1.AuthService.SignUp
+      post: /v1/auth/sign-up
+      body: "*"
+    - selector: auth.v1.AuthService.SignIn
+      post: /v1/auth/sign-in
+      body: "*"
+    - selector: auth.v1.AuthService.Validate
+      post: /v1/auth/validate
+      body: "*"
+
+    - selector: user.v1.UserService.GetList
+      get: /v1/user/get-list

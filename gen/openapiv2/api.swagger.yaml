@@ -1,0 +1,246 @@
+swagger: "2.0"
+info:
+  title: Пример микросервисного приложения
+  version: 1.0.0
+  contact:
+    name: Igor Akimov
+    url: https://github.com/igorakimy
+    email: igorakimy@gmail.com
+tags:
+  - name: AuthService
+  - name: UserService
+host: api.example.com
+basePath: /v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+  - application/x-foo-mime
+produces:
+  - application/json
+  - application/x-foo-mime
+paths:
+  /v1/auth/sign-in:
+    post:
+      summary: Авторизация пользователя
+      operationId: AuthService_SignIn
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/SignInResponse'
+        "403":
+          description: Возвращается, когда у пользователя нет разрешения на доступ к ресурсу.
+          schema: {}
+        "404":
+          description: Возвращается, когда ресурс не найден.
+          schema:
+            type: string
+            format: string
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/Status'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignInRequest'
+      tags:
+        - AuthService
+  /v1/auth/sign-up:
+    post:
+      summary: Регистрация пользователя
+      operationId: AuthService_SignUp
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/SignUpResponse'
+        "403":
+          description: Возвращается, когда у пользователя нет разрешения на доступ к ресурсу.
+          schema: {}
+        "404":
+          description: Возвращается, когда ресурс не найден.
+          schema:
+            type: string
+            format: string
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/Status'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignUpRequest'
+      tags:
+        - AuthService
+  /v1/auth/validate:
+    post:
+      summary: Валидация токена доступа
+      operationId: AuthService_Validate
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/ValidateResponse'
+        "403":
+          description: Возвращается, когда у пользователя нет разрешения на доступ к ресурсу.
+          schema: {}
+        "404":
+          description: Возвращается, когда ресурс не найден.
+          schema:
+            type: string
+            format: string
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/Status'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ValidateRequest'
+      tags:
+        - AuthService
+  /v1/user/get-list:
+    get:
+      summary: Получить список пользователей
+      operationId: UserService_GetList
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/GetUsersResponse'
+        "403":
+          description: Возвращается, когда у пользователя нет разрешения на доступ к ресурсу.
+          schema: {}
+        "404":
+          description: Возвращается, когда ресурс не найден.
+          schema:
+            type: string
+            format: string
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/Status'
+      tags:
+        - UserService
+definitions:
+  Any:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  GetUsersResponse:
+    type: object
+    properties:
+      users:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/user.v1.User'
+  SignInRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        title: Email
+      password:
+        type: string
+        title: Пароль
+  SignInResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+        title: Токен доступа
+  SignUpRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        title: Email
+      password:
+        type: string
+        title: Пароль
+  SignUpResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+        title: Токен доступа
+      user:
+        $ref: '#/definitions/auth.v1.User'
+        title: Пользователь
+  Status:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/Any'
+  ValidateRequest:
+    type: object
+    properties:
+      access_token:
+        type: string
+        title: Токен доступа
+  ValidateResponse:
+    type: object
+    properties:
+      user_id:
+        type: string
+        title: Идентификатор пользователя
+  auth.v1.User:
+    type: object
+    properties:
+      id:
+        type: string
+        title: Идентификатор пользователя
+      first_name:
+        type: string
+        title: Имя пользователя
+      last_name:
+        type: string
+        title: Фамилия пользователя
+      email:
+        type: string
+        title: Адрес электронной почты
+      created_at:
+        type: string
+        format: date-time
+        title: Время создания
+      updated_at:
+        type: string
+        format: date-time
+        title: Время обновления
+  user.v1.User:
+    type: object
+    properties:
+      id:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      email:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+externalDocs:
+  description: Detail
+  url: https://github.com/igorakimy

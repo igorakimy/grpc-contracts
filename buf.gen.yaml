@@ -1,0 +1,36 @@
+version: v1
+plugins:
+# GO
+- name: go
+  out: gen/go
+  opt:
+    - paths=source_relative
+
+# GRPC
+- name: go-grpc
+  out: gen/go
+  opt:
+    - paths=source_relative
+    - require_unimplemented_servers=false
+
+# GRPC-GATEWAY
+- name: grpc-gateway
+  out: gen/go
+  strategy: all
+  opt:
+    - paths=source_relative
+    - logtostderr=true
+    - grpc_api_configuration=grpc.api.yaml
+
+# OPENAPI
+- name: openapiv2
+  out: gen/openapiv2
+  strategy: all
+  opt:
+    - output_format=yaml
+    - allow_merge=true
+    - merge_file_name=api
+    - json_names_for_fields=false
+    - openapi_naming_strategy=simple
+    - grpc_api_configuration=grpc.api.yaml
+    - openapi_configuration=swagger.config.yaml

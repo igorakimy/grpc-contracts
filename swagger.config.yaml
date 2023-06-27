@@ -1,0 +1,36 @@
+openapiOptions:
+  file:
+    - file: "proto/auth/v1/auth.proto"
+      option:
+        info:
+          title: Пример микросервисного приложения
+          contact:
+            name: Igor Akimov
+            url: https://github.com/igorakimy
+            email: igorakimy@gmail.com
+          description: ""
+          version: "1.0.0"
+        host: api.example.com
+        basePath: /v1
+        schemes:
+          - HTTP
+          - HTTPS
+        consumes:
+          - application/json
+          - application/x-foo-mime
+        produces:
+          - application/json
+          - application/x-foo-mime
+        responses:
+          "403":
+            description: Возвращается, когда у пользователя нет разрешения на доступ к ресурсу.
+          "404":
+            description: Возвращается, когда ресурс не найден.
+            schema:
+              jsonSchema:
+                type:
+                  - STRING
+        externalDocs:
+          description: Detail
+          url: https://github.com/igorakimy
+    - file: "proto/user/v1/user.proto"
