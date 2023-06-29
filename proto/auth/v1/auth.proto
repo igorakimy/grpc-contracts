@@ -62,8 +62,10 @@ message User {
     string last_name = 3;
     // Адрес электронной почты
     string email = 4;
+    // Роль пользователя
+    string role = 5;
     // Время создания
-    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp created_at = 6;
     // Время обновления
-    google.protobuf.Timestamp updated_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
 }

@@ -219,6 +219,9 @@ definitions:
       email:
         type: string
         title: Адрес электронной почты
+      role:
+        type: string
+        title: Роль пользователя
       created_at:
         type: string
         format: date-time
